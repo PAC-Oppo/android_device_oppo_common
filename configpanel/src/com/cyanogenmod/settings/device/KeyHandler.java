@@ -91,7 +91,6 @@ public class KeyHandler implements DeviceKeyHandler {
                 Intent intent = new Intent(action, null);
                 startActivitySafely(intent);
                 break;
-            }
         case GESTURE_CIRCLE_SCANCODE:
             wakeUpDismissKeyguard();
             Intent intent = new Intent(Intent.ACTION_CAMERA_BUTTON, null);
