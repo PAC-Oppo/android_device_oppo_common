@@ -91,29 +91,21 @@ public class KeyHandler implements DeviceKeyHandler {
                 Intent intent = new Intent(action, null);
                 startActivitySafely(intent);
                 break;
-        case GESTURE_CIRCLE_SCANCODE:
-            wakeUpDismissKeyguard();
-            Intent intent = new Intent(Intent.ACTION_CAMERA_BUTTON, null);
-            intent.putExtra(Intent.EXTRA_KEY_EVENT, event);
-            mContext.sendOrderedBroadcastAsUser(intent, UserHandle.CURRENT_OR_SELF,
-                    null, null, null, 0, null, null);
-            consumed = true;
-            break;
-        case GESTURE_SWIPE_DOWN_SCANCODE:
-            dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE);
-            consumed = true;
-            break;
-        case GESTURE_V_SCANCODE:
-            consumed = true;
-            break;
-        case GESTURE_LTR_SCANCODE:
-            dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_PREVIOUS);
-            consumed = true;
-            break;
-        case GESTURE_GTR_SCANCODE:
-            dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_NEXT);
-            consumed = true;
-            break;
+            case GESTURE_SWIPE_DOWN_SCANCODE:
+                dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE);
+                break;
+            case GESTURE_LTR_SCANCODE:
+                dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_PREVIOUS);
+                break;
+            case GESTURE_GTR_SCANCODE:
+                dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_NEXT);
+                break;
+            case KEY_DOUBLE_TAP:
+                if (!mPowerManager.isScreenOn()) {
+                    mPowerManager.wakeUp(SystemClock.uptimeMillis());
+                }
+                break;
+            }
         }
     }
 
